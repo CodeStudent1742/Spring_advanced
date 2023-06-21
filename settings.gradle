@@ -1,1 +1,3 @@
 rootProject.name = 'bean-lifecycle'
+include 'kodilla-agent'
+

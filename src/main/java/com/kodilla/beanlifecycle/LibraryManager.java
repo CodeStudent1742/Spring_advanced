@@ -1,9 +1,11 @@
 package com.kodilla.beanlifecycle;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 public class LibraryManager implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, DisposableBean {
 

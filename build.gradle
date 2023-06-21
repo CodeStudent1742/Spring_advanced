@@ -1,7 +1,7 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.1.0'
-    id 'io.spring.dependency-management' version '1.1.0'
+	id 'java'
+	id 'org.springframework.boot' version '2.5.3'
+	id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com.kodilla'
@@ -9,14 +9,27 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'net.bytebuddy:byte-buddy:1.10.13'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+jar {
+	duplicatesStrategy = 'exclude'
+	from {
+		configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+	}
+	manifest {
+		attributes "Main-Class": 'com.kodilla.bytebuddy.JavaAgentController'
+	}
+}
+
+test {
+	useJUnitPlatform()
 }
